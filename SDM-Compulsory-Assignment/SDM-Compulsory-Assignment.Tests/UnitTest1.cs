@@ -212,17 +212,15 @@ namespace SDM_Compulsory_Assignment.Tests
             {
                 new Review() {Reviewer = 2, Grade = 5, Movie = 666, ReviewDate = DateTime.Now},
                 new Review() {Reviewer = 2, Grade = 5, Movie = 3, ReviewDate = DateTime.Now},
-                /*new Review() {Reviewer = 1, Grade = 4, Movie = 4, ReviewDate = DateTime.Now},
-                new Review() {Reviewer = 4, Grade = 3, Movie = 6, ReviewDate = DateTime.Now},
-                new Review() {Reviewer = 5, Grade = 1, Movie = 7, ReviewDate = DateTime.Now},
-                new Review() {Reviewer = 5, Grade = 0, Movie = 7, ReviewDate = DateTime.Now},*/
+                new Review() {Reviewer = 4, Grade = 4, Movie = 1, ReviewDate = DateTime.Now},
+                new Review() {Reviewer = 4, Grade = 3, Movie = 1, ReviewDate = DateTime.Now},
             };
             reviewMock.Setup(m => m.ReadAll()).Returns(() => test);
 
             //act
             var actualResult = reviewService.GetTopRatedMovies(5).Count;
             reviewMock.Verify(x => x.ReadAll(), Times.AtLeastOnce);
-            var expectedResult = 2;
+            var expectedResult = 3;
             Assert.Equal(expectedResult, actualResult);
         }
 

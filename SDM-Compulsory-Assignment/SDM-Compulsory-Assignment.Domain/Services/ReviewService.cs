@@ -121,17 +121,18 @@ namespace SDM_Compulsory_Assignment.Domain.Services
         public List<int> GetTopRatedMovies(int amount)
         {
             var averageRates = new Dictionary<int, double>();
-            var movies = _DataCRUD.ReadAll().OrderBy(x => x.Grade).Take(amount).ToList();
+            var movies = _DataCRUD.ReadAll().OrderByDescending(x => x.Grade).ToList();
             int currentAmount = 0;
             for (int i = 0; i < movies.Count; i++)
             {
                 var movie = movies[i];
                 var averageRating = GetAverageRateOfMovie(movie.Movie);
-                if (!averageRates.ContainsKey(movie.Movie))
+                if (!averageRates.ContainsKey(movie.Movie) && currentAmount <= amount)
                 {
                     currentAmount++;
                     averageRates.Add(movie.Movie, averageRating);
                 }
+                else break;
             }
             return averageRates.OrderByDescending(x => x.Value).Select(x => x.Key).ToList();
         }
